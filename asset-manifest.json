@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/CodingShodkk-Frontend/static/css/main.9162748d.css",
+    "main.js": "/CodingShodkk-Frontend/static/js/main.f788d167.js",
+    "static/js/512.ee8e3eff.chunk.js": "/CodingShodkk-Frontend/static/js/512.ee8e3eff.chunk.js",
+    "index.html": "/CodingShodkk-Frontend/index.html",
+    "main.9162748d.css.map": "/CodingShodkk-Frontend/static/css/main.9162748d.css.map",
+    "main.f788d167.js.map": "/CodingShodkk-Frontend/static/js/main.f788d167.js.map",
+    "512.ee8e3eff.chunk.js.map": "/CodingShodkk-Frontend/static/js/512.ee8e3eff.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9162748d.css",
+    "static/js/main.f788d167.js"
+  ]
+}
