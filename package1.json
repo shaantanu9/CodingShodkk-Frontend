@@ -1,8 +1,7 @@
 {
-  "name": "codingshodkk-frontend",
-  "version": "1.0.0",
-  "description": "This is the frontend of the CodingShodkk website. It is built using ReactJS and TailwindCSS. It is hosted on Netlify.",
-  "main": "tailwind.config.js",
+  "name": "100daysofcode",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.5",
     "@testing-library/jest-dom": "^5.16.5",
@@ -49,20 +48,4 @@
     "postcss": "^8.4.16",
     "tailwindcss": "^3.1.8"
   },
-  "keywords": [],
-  "author": {
-    "name": "Shantanu Bombatkar",
-    "email": "shantanubombatkar2@gmail.com",
-    "url": "https://github.com/shaantanu9",
-    "portfolio": "https://shantanubombatkar.shodkk.com"
-  },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/shaantanu9/CodingShodkk-Frontend.git"
-  },
-  "bugs": {
-    "url": "https://github.com/shaantanu9/CodingShodkk-Frontend/issues"
-  },
-  "homepage": "https://shaantanu9.github.io/CodingShodkk-Frontend"
 }

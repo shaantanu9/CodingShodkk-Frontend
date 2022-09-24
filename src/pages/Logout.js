@@ -7,7 +7,6 @@ function Logout() {
   useEffect(() => {
     localStorage.removeItem("token");
     setToken(null);
-    window.location.reload();
   }, []);
   return Navigate("/");
   // return <Navigate to="/login" />;

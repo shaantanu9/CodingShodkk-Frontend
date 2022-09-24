@@ -4,11 +4,11 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 import { Navigate } from "react-router-dom";
-// import dotenv from "dotenv";
-// const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-// const PORT = process.env.PORT;
-const PORT = 3000;
-const BACKEND_URL = `http://192.168.1.4:${PORT}`;
+
+// Backend URL from .env file
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+console.log("BACKEND_URL from Register", BACKEND_URL);
+
 const getToken = localStorage.getItem("token");
 
 const Register = () => {

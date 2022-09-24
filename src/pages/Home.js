@@ -3,7 +3,9 @@ import axios from "axios";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
-const BACKEND_URL = "http://192.168.1.4:3000/";
+// Backend URL from .env file
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+console.log("BACKEND_URL", BACKEND_URL);
 
 const Home = () => {
   const [data, setData] = useState([]);
@@ -16,11 +18,11 @@ const Home = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     const user = localStorage.getItem("user");
-    // if (token !== null) {
-    setToken(token);
-    setUser(user);
-    setIsAuthenticated(true);
-    // }
+    if (token !== null) {
+      setToken(token);
+      setUser(user);
+      setIsAuthenticated(true);
+    }
     getDataToHome();
   }, []);
 
@@ -40,6 +42,7 @@ const Home = () => {
       setLoading(false);
     }
   };
+
   // style to center the content on all screen sizes
   const style = {
     display: "flex",
@@ -51,7 +54,7 @@ const Home = () => {
   return (
     <div style={style}>
       {isAuthenticated ? (
-        <div>
+        <div className="mt-4">
           {loading ? (
             <div>Loading...</div>
           ) : (
