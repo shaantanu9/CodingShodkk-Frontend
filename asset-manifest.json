@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/CodingShodkk-Frontend/static/css/main.9162748d.css",
-    "main.js": "/CodingShodkk-Frontend/static/js/main.75c0f4d3.js",
-    "static/js/512.59ab70af.chunk.js": "/CodingShodkk-Frontend/static/js/512.59ab70af.chunk.js",
+    "main.css": "/CodingShodkk-Frontend/static/css/main.85bda7ff.css",
+    "main.js": "/CodingShodkk-Frontend/static/js/main.075e9e1b.js",
+    "static/js/787.ef46b535.chunk.js": "/CodingShodkk-Frontend/static/js/787.ef46b535.chunk.js",
     "index.html": "/CodingShodkk-Frontend/index.html",
-    "main.9162748d.css.map": "/CodingShodkk-Frontend/static/css/main.9162748d.css.map",
-    "main.75c0f4d3.js.map": "/CodingShodkk-Frontend/static/js/main.75c0f4d3.js.map",
-    "512.59ab70af.chunk.js.map": "/CodingShodkk-Frontend/static/js/512.59ab70af.chunk.js.map"
+    "main.85bda7ff.css.map": "/CodingShodkk-Frontend/static/css/main.85bda7ff.css.map",
+    "main.075e9e1b.js.map": "/CodingShodkk-Frontend/static/js/main.075e9e1b.js.map",
+    "787.ef46b535.chunk.js.map": "/CodingShodkk-Frontend/static/js/787.ef46b535.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.9162748d.css",
-    "static/js/main.75c0f4d3.js"
+    "static/css/main.85bda7ff.css",
+    "static/js/main.075e9e1b.js"
   ]
 }
