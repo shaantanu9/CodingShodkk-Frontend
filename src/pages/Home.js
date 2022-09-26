@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import LikeButton from "../Components/LikeButton";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
-
 // Backend URL from .env file
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 console.log("BACKEND_URL", BACKEND_URL);
@@ -14,6 +14,7 @@ const Home = () => {
   const [token, setToken] = useState(null);
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [liked, setLiked] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -43,6 +44,15 @@ const Home = () => {
     }
   };
 
+  const likeHandler = (id) => {
+    setLiked(!liked);
+    axios.patch(BACKEND_URL + `bookmarks/${id}/like`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  };
+
   // style to center the content on all screen sizes
   const style = {
     display: "flex",
@@ -61,20 +71,53 @@ const Home = () => {
             <div>
               {data.map((item) => (
                 <div
-                  key={item.id}
+                  key={item._id}
                   className="container p-3 border-separate rounded-md border m-2 scale-y-4 "
                 >
                   <h1 className="text-2xl  capitalize  ">{item.title}</h1>
                   {ShorterBookmarkURL(item.url)}
 
-                  {IfDescriptionIsCode(item.description)}
+                  {item.description && <p>{item.description}</p>}
+                  {item.code && showCode(item.code)}
+
+                  <div className="flex justify-start space-x-3 mt-5">
+                    {item.tags.map((tag) => (
+                      <span
+                        key={tag.id}
+                        className="bg-gray-400 rounded text-white px-3"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <br />
                   <button
                     value={item.description}
                     onClick={copyToClipboard}
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-2"
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-1 px-3 rounded my-2"
                   >
                     Copy
                   </button>
+                  {/* Add likes and comments section */}
+                  <div className="flex justify-between">
+                    <div className="flex">
+                      {/* like icon and onclick */}
+                      <LikeButton
+                        id={item._id}
+                        likesList={item?.likesList?.length}
+                      />
+                      {/* <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-2">
+                        Like {item?.likesList?.length}
+                      </button>
+                      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-2">
+                        Comment {item?.commentsList?.length}
+                      </button>
+
+                      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-2">
+                        Share {item?.commentsList?.length}
+                      </button> */}
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
@@ -92,19 +135,14 @@ const Home = () => {
 };
 export default Home;
 
-function IfDescriptionIsCode(description) {
-  if (description.includes("```")) {
-    description = description.replace("```", "");
-    return (
-      <div>
-        <SyntaxHighlighter language="javascript" style={docco}>
-          {description}
-        </SyntaxHighlighter>
-      </div>
-    );
-  } else {
-    return <p>{description}</p>;
-  }
+function showCode(description) {
+  return (
+    <div>
+      <SyntaxHighlighter language="javascript" style={docco}>
+        {description}
+      </SyntaxHighlighter>
+    </div>
+  );
 }
 
 function FilterURL(url, title) {
