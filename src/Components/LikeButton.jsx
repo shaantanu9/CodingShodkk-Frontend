@@ -16,10 +16,12 @@ const LikeButton = ({ id, likesList }) => {
   }, []);
 
   const likeHandler = (id) => {
+    console.log("id from LikeHandler", id);
     setLiked(!liked);
     console.log("token from LikeHandler", token);
+    console.log(BACKEND_URL + `/bookmarks/${id}/like`, "url");
     axios
-      .patch(BACKEND_URL + `bookmarks/${id}/like`, null, {
+      .patch(BACKEND_URL + `/bookmarks/${id}/like`, null, {
         headers: {
           Authorization: `Bearer ${token}`,
           Accept: "application/json",

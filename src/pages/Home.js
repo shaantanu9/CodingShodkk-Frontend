@@ -3,18 +3,23 @@ import axios from "axios";
 import LikeButton from "../Components/LikeButton";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
+
+import Comments from "../Components/Comments";
+
 // Backend URL from .env file
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 console.log("BACKEND_URL", BACKEND_URL);
 
 const Home = () => {
   const [data, setData] = useState([]);
+  const [dataError, setDataError] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(false);
   const [token, setToken] = useState(null);
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [liked, setLiked] = useState(false);
+  const [openComment, setOpenComment] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -29,24 +34,25 @@ const Home = () => {
 
   const getDataToHome = async () => {
     try {
-      const response = await axios.get(BACKEND_URL + "bookmarks", {
+      const response = await axios.get(BACKEND_URL + "/bookmarks", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("response", response);
-      setData(response.data.user);
+      console.log("response", response.data, response.data.user);
+      setData(response.data);
       setLoading(false);
+      setError(false);
     } catch (error) {
-      console.log("error", error);
-      setError(error);
+      console.log("error", error.response);
+      setError(true);
       setLoading(false);
     }
   };
 
   const likeHandler = (id) => {
     setLiked(!liked);
-    axios.patch(BACKEND_URL + `bookmarks/${id}/like`, {
+    axios.patch(BACKEND_URL + `/bookmarks/${id}/like`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -69,7 +75,8 @@ const Home = () => {
             <div>Loading...</div>
           ) : (
             <div>
-              {data.map((item) => (
+              {/* {error && <div>Somthing Went Wrong</div>} */}
+              {data?.map((item) => (
                 <div
                   key={item._id}
                   className="container p-3 border-separate rounded-md border m-2 scale-y-4 "
@@ -106,16 +113,8 @@ const Home = () => {
                         id={item._id}
                         likesList={item?.likesList?.length}
                       />
-                      {/* <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-2">
-                        Like {item?.likesList?.length}
-                      </button>
-                      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-2">
-                        Comment {item?.commentsList?.length}
-                      </button>
-
-                      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-2">
-                        Share {item?.commentsList?.length}
-                      </button> */}
+                      {/* comment icon and onclick */}
+                      <Comments id={item._id} />
                     </div>
                   </div>
                 </div>

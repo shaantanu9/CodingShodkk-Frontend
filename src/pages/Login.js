@@ -12,6 +12,7 @@ const getToken = localStorage.getItem("token");
 const Login = () => {
   const Navigate = useNavigate();
   const [token, setToken] = useState(getToken);
+  const [tokenError, setTokenError] = useState(null);
 
   const formik = useFormik({
     initialValues: {
@@ -34,13 +35,19 @@ const Login = () => {
   //Login User
   const loginUser = async (values) => {
     function postData(url) {
-      return axios.post(url, values).then((res) => {
-        console.log("res", res);
-        setToken(res.data.token);
-        localStorage.setItem("token", res.data.token);
-        //   redirect to home page
-        return Navigate("/");
-      });
+      return axios
+        .post(url, values)
+        .then((res) => {
+          console.log("res", res);
+          setToken(res.data.token);
+          localStorage.setItem("token", res.data.token);
+          //   redirect to home page
+          return Navigate("/");
+        })
+        .catch((err) => {
+          console.log("err", err.response);
+          setTokenError(err.response.data.message);
+        });
     }
     postData(`${BACKEND_URL}/users/login`);
   };
@@ -98,6 +105,14 @@ const Login = () => {
             />
           </div>
         </form>
+        {
+          // if token error is true then show error message
+          tokenError && (
+            <div className="text-red-500">
+              <p>{tokenError}</p>
+            </div>
+          )
+        }
       </div>
     </>
   );
